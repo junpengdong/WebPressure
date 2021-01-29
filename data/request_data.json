@@ -1,0 +1,9 @@
+{
+    "es_library": {
+        "url": "http://172.17.21.21/api/v1/find/data",
+        "c_params_method": "random_append_word",
+        "c_headers_method": "",
+        "params": "",
+        "headers": ""
+    }
+}
