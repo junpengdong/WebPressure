@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import operator
 
+__all__ = 'PerformanceDataPlot',
+
 
 class PerformanceDataPlot:
 

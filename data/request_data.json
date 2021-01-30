@@ -1,9 +1,13 @@
 {
     "es_library": {
-        "url": "http://172.17.21.21/api/v1/find/data",
+        "url": "http://172.17.21.21:8777/api/v1/find/data",
         "c_params_method": "random_append_word",
-        "c_headers_method": "",
         "params": "",
-        "headers": ""
+        "headers": "",
+        "warm_up": 100,
+        "req_number": 100,
+        "req_type": "get",
+        "req_time": 0,
+        "resp_show": "high"
     }
 }
