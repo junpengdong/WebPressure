@@ -49,7 +49,12 @@ class WebRequestData:
         req_time = self.__json_data[key]['req_time']
         return req_time
 
-    # 获取绘图类型
+    # 获取数据处理类型
+    def get_resp_data_handle(self, key):
+        resp_data_handle = self.__json_data[key]['resp_data_handle']
+        return resp_data_handle
+
+    # 获取数据绘图类型
     def get_resp_show(self, key):
         resp_show = self.__json_data[key]['resp_show']
         return resp_show

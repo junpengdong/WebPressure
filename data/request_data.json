@@ -8,6 +8,7 @@
         "req_number": 100,
         "req_type": "get",
         "req_time": 0,
-        "resp_show": "high"
+        "resp_data_handle": "medium",
+        "resp_show": "line"
     }
 }

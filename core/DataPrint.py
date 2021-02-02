@@ -8,7 +8,7 @@ class PerformanceDataPrint:
 
     def __init__(self, req_number, exec_time, resp_time_arr, resp_error_arr, sent_arr, receive_arr):
         self.__req_number = req_number
-        self.__exec_time = exec_time
+        self.__exec_time = "{:.3f}".format(exec_time)
         self.__sec_number = req_number / exec_time
         self.__max_resp_time = "{:.3f}".format(max(resp_time_arr))
         self.__min_resp_time = "{:.3f}".format(min(resp_time_arr))
@@ -41,29 +41,47 @@ class PerformanceDataPrint:
         return index
 
     # 同步打印性能分析数据
-    def sync_print(self):
-        print("执行请求时间: %s s" % self.__exec_time)
-        print("请求次数: %s" % self.__req_number)
-        print("每秒请求数: %s" % self.__sec_number)
-        print()
-        print("最大响应时间: %s ms" % self.__max_resp_time)
-        print("最小响应时间: %s ms" % self.__min_resp_time)
-        print("平均响应时间: %s ms" % self.__avg_resp_time)
-        print()
-        print("最大TPS: %s" % self.__max_tps)
-        print("最小TPS: %s" % self.__min_tps)
-        print("平均TPS: %s" % self.__avg_tps)
-        print()
-        print("百分之50请求响应时间: %s ms" % self.__resp_time_50)
-        print("百分之90请求响应时间: %s ms" % self.__resp_time_90)
-        print("百分之95请求响应时间: %s ms" % self.__resp_time_95)
-        print("百分之99请求响应时间: %s ms" % self.__resp_time_99)
-        print()
-        print("每秒发送数据量: %s KB" % self.__sent_kb)
-        print("每秒接收数据量: %s KB" % self.__receive_kb)
-        print()
-        print("慢请求次数: %s" % self.__slow_query)
-        print("慢请求率: %s" % self.__slow_query_rate)
-        print()
-        print("错误请求次数: %s" % self.__error_query)
-        print("错误请求率: %s" % self.__error_query_rate)
+    def sync_print(self, t):
+        if t == 'warm_up':
+            print("预热请求结束...")
+            print("-----------------------------------------------------------------------------")
+            print("|                                                                           |")
+            print("|                              预热请求性能数据                                ｜")
+            print("|                                                                           |")
+            print("-----------------------------------------------------------------------------")
+        else:
+            print("接口请求结束...")
+            print("-----------------------------------------------------------------------------")
+            print("|                                                                           |")
+            print("|                             压测请求性能数据                                 ｜")
+            print("|                                                                           |")
+            print("-----------------------------------------------------------------------------")
+        self.append_str("|        Execute Time                |        %s s" % self.__exec_time)
+        self.append_str("|        Request Times               |        %s" % self.__req_number)
+        self.append_str("|        Request Times/Sec           |        %s" % self.__sec_number)
+        self.append_str("|        Max Response Time           |        %s ms" % self.__max_resp_time)
+        self.append_str("|        Min Response Time           |        %s ms" % self.__min_resp_time)
+        self.append_str("|        Avg Response Time           |        %s ms" % self.__avg_resp_time)
+        self.append_str("|        Max TPS                     |        %s" % self.__max_tps)
+        self.append_str("|        Min TPS                     |        %s" % self.__min_tps)
+        self.append_str("|        Avg TPS                     |        %s" % self.__avg_tps)
+        self.append_str("|        50% Line                    |        " + str(self.__resp_time_50) + " ms")
+        self.append_str("|        90% Line                    |        " + str(self.__resp_time_90) + " ms")
+        self.append_str("|        95% Line                    |        " + str(self.__resp_time_95) + " ms")
+        self.append_str("|        99% Line                    |        " + str(self.__resp_time_99) + " ms")
+        self.append_str("|        Sent KB/Sec                 |        %s KB" % self.__sent_kb)
+        self.append_str("|        Received KB/Sec             |        %s KB" % self.__receive_kb)
+        self.append_str("|        Slow Request Times          |        %s" % self.__slow_query)
+        self.append_str("|        Slow Request Rate           |        %s" % self.__slow_query_rate)
+        self.append_str("|        Error Request Times         |        %s" % self.__error_query)
+        self.append_str("|        Error Request Rate          |        %s" % self.__error_query_rate)
+        print("-----------------------------------------------------------------------------\n\n")
+
+    @staticmethod
+    def append_str(s):
+        length = len(s)
+        if length < 77:
+            for i in range(77 - length - 1):
+                s = s + " "
+        s = s + "|"
+        print(s)
