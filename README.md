@@ -8,7 +8,7 @@ Web接口压测python项目
 ##### 压测功能已完善
 
 ### request_data.json配置说明
-(```)
+```
 {
     "es_library": {
         "url": "http://172.17.21.21:8777/api/v1/find/data",
@@ -23,7 +23,7 @@ Web接口压测python项目
         "resp_show": "line"
     }
 }
-(```)
+```
 处理json类: RequestData.py
 * es_library: 测试方法描述，例子中是对es的词库压测，会根据这个key获取对应api的参数
 * url: api地址
