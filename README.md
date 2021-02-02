@@ -15,25 +15,25 @@ Web接口压测python项目，通过项目学习Python
 |                             压测请求性能数据                                 |
 |                                                                           |
 -----------------------------------------------------------------------------
-|        Execute Time                |        0.855 s                       |
-|        Request Times               |        100                           |
-|        Request Times/Sec           |        116.91586375299481            |
-|        Max Response Time           |        755.041 ms                    |
-|        Min Response Time           |        284.764 ms                    |
-|        Avg Response Time           |        516.633 ms                    |
-|        Max TPS                     |        410.571                       |
-|        Min TPS                     |        154.847                       |
-|        Avg TPS                     |        226.304                       |
-|        50% Line                    |        508.923 ms                    |
-|        90% Line                    |        722.084 ms                    |
-|        95% Line                    |        733.499 ms                    |
-|        99% Line                    |        742.978 ms                    |
-|        Sent KB/Sec                 |        2.01 KB                       |
-|        Received KB/Sec             |        3.86 KB                       |
-|        Slow Request Times          |        100                           |
-|        Slow Request Rate           |        100.00%                       |
-|        Error Request Times         |        0                             |
-|        Error Request Rate          |        0.00%                         |
+|        Execute Time                |        0.855 s                       | // 执行脚本时间
+|        Request Times               |        100                           | // 请求次数
+|        Request Times/Sec           |        116.91586375299481            | // 每秒请求数
+|        Max Response Time           |        755.041 ms                    | // 最大响应时间
+|        Min Response Time           |        284.764 ms                    | // 最小响应时间
+|        Avg Response Time           |        516.633 ms                    | // 平均响应时间
+|        Max TPS                     |        410.571                       | // 最大TPS
+|        Min TPS                     |        154.847                       | // 最小TPS
+|        Avg TPS                     |        226.304                       | // 平均TPS
+|        50% Line                    |        508.923 ms                    | // 百分之50请求响应时间之内
+|        90% Line                    |        722.084 ms                    | // 百分之90请求响应时间之内
+|        95% Line                    |        733.499 ms                    | // 百分之95请求响应时间之内
+|        99% Line                    |        742.978 ms                    | // 百分之99请求响应时间之内
+|        Sent KB/Sec                 |        2.01 KB                       | // 每秒发送数据量
+|        Received KB/Sec             |        3.86 KB                       | // 每秒接收数据量
+|        Slow Request Times          |        100                           | // 慢请求次数（响应时间大于200ms）
+|        Slow Request Rate           |        100.00%                       | // 慢请求率
+|        Error Request Times         |        0                             | // 错误请求数
+|        Error Request Rate          |        0.00%                         | // 错误请求率
 -----------------------------------------------------------------------------
 ```
 
