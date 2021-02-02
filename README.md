@@ -37,6 +37,8 @@ Web接口压测python项目，通过项目学习Python
 -----------------------------------------------------------------------------
 ```
 
+![image](https://github.com/junpengdong/WebPressure/blob/master/pic/myplot.png)
+
 ### Python压测脚本性能数据绘图库
 * pip install matplotlib
 
