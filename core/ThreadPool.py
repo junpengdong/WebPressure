@@ -1,5 +1,4 @@
 from threading import Thread
-from lib import WebRequestData
 
 __all__ = 'CustomThreadPool',
 

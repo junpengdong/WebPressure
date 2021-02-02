@@ -80,11 +80,11 @@ if __name__ == '__main__':
     key = script_main.key
     warm_up = web_req_data.get_warm_up(key)
     if warm_up > 0:
-        print("预热请求开始...")
+        print("Warm Up Request Start...")
         script_main.pressure_req_api(warm_up, web_req_data, t='warm_up')
     script_main.init_params()
     req_number = web_req_data.get_req_number(key)
-    print("接口请求开始...")
+    print("Web Api Request Start...")
     script_main.pressure_req_api(req_number, web_req_data)
 
     # 性能数据处理

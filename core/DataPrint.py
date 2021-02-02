@@ -43,17 +43,17 @@ class PerformanceDataPrint:
     # 同步打印性能分析数据
     def sync_print(self, t):
         if t == 'warm_up':
-            print("预热请求结束...")
+            print("Warm Up Request End...")
             print("-----------------------------------------------------------------------------")
             print("|                                                                           |")
-            print("|                              预热请求性能数据                                ｜")
+            print("|                           Warm Up Pressure Data                           |")
             print("|                                                                           |")
             print("-----------------------------------------------------------------------------")
         else:
-            print("接口请求结束...")
+            print("Web Api Request End...")
             print("-----------------------------------------------------------------------------")
             print("|                                                                           |")
-            print("|                             压测请求性能数据                                 ｜")
+            print("|                           Web Api Pressure Data                           |")
             print("|                                                                           |")
             print("-----------------------------------------------------------------------------")
         self.append_str("|        Execute Time                |        %s s" % self.__exec_time)
