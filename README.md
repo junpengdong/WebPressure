@@ -1,5 +1,5 @@
 # WebPressure
-Web接口压测python项目，通过项目学习Python
+Web接口压力测试python项目，通过项目学习Python
 
 ### 2021-01-29
 项目还在完善当中
