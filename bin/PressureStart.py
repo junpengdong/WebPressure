@@ -69,7 +69,7 @@ class ScriptMain:
         self.thread_join()
         exec_time = time.time() - start_time
 
-        data_print = PerformanceDataPrint(n, exec_time, self.resp_time_arr, self.resp_error_arr,
+        data_print = PerformanceDataPrint(self.key, n, exec_time, self.resp_time_arr, self.resp_error_arr,
                                           self.sent_arr, self.receive_arr)
         data_print.sync_print(t)
 

@@ -4,11 +4,11 @@
         "c_params_method": "random_append_word",
         "params": "",
         "headers": "",
-        "warm_up": 100,
+        "warm_up": 0,
         "req_number": 100,
         "req_type": "get",
         "req_time": 0,
         "resp_data_handle": "medium",
-        "resp_show": "line"
+        "resp_show": "point_line"
     }
 }

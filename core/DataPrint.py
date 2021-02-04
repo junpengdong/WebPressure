@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*
 import copy
+from lib import WebResponseData
+from prettytable import PrettyTable
 
-__all__ = 'PerformanceDataPrint',
+__all__ = 'PerformanceDataPrint', 'DataAnalysisPrint',
 
 
 class PerformanceDataPrint:
 
-    def __init__(self, req_number, exec_time, resp_time_arr, resp_error_arr, sent_arr, receive_arr):
+    def __init__(self, key, req_number, exec_time, resp_time_arr, resp_error_arr, sent_arr, receive_arr):
+        self.__key = key
         self.__req_number = req_number
         self.__exec_time = "{:.3f}".format(exec_time)
         self.__sec_number = req_number / exec_time
@@ -23,7 +26,7 @@ class PerformanceDataPrint:
         self.__resp_time_95 = copy_resp_time_arr[self.get_arr_index(copy_resp_time_arr, 0.95)]
         self.__resp_time_99 = copy_resp_time_arr[self.get_arr_index(copy_resp_time_arr, 0.99)]
         self.__sent_kb = "{:.2f}".format(sum(sent_arr) / 1000 / exec_time)
-        self.__receive_kb = "{:.2f}".format(sum(receive_arr) / 1000/ exec_time)
+        self.__receive_kb = "{:.2f}".format(sum(receive_arr) / 1000 / exec_time)
         slow_query = 0
         for time in resp_time_arr:
             if time > 200:
@@ -50,6 +53,9 @@ class PerformanceDataPrint:
             print("|                                                                           |")
             print("-----------------------------------------------------------------------------")
         else:
+            WebResponseData.write_data(self.__key, self.__max_resp_time, self.__min_resp_time, self.__avg_resp_time,
+                                       self.__max_tps, self.__min_tps, self.__avg_tps, self.__slow_query,
+                                       self.__error_query)
             print("Web Api Request End...")
             print("-----------------------------------------------------------------------------")
             print("|                                                                           |")
@@ -78,10 +84,58 @@ class PerformanceDataPrint:
         print("-----------------------------------------------------------------------------\n\n")
 
     @staticmethod
-    def append_str(s):
+    def append_str(s, c=77):
         length = len(s)
-        if length < 77:
-            for i in range(77 - length - 1):
+        if length < c:
+            for i in range(c - length - 1):
                 s = s + " "
         s = s + "|"
         print(s)
+
+
+class DataAnalysisPrint:
+
+    def __init__(self):
+        self.__key_arr = ['max_resp_time', 'min_resp_time', 'avg_resp_time',
+                          'max_tps', 'min_tps', 'avg_tps', 'slow_query', 'error_query']
+
+    def data_handle(self, key):
+        json_data = WebResponseData.read_data()
+        json_obj_arr = json_data.get(key)
+        handle_arr = []
+        for k in self.__key_arr:
+            handle_arr.append(DataAnalysisPrint.data_compare(k, json_obj_arr))
+        self.data_print(handle_arr)
+
+    @staticmethod
+    def data_compare(key, json_obj_arr):
+        value_arr = [d[key] for d in json_obj_arr]
+        if len(value_arr) == 0:
+            return
+        newest_data = value_arr[-1]
+        value_arr = value_arr[:len(value_arr) - 1]
+        compare_arr = [key]
+        for value in value_arr:
+            if isinstance(value, int):
+                v = int(newest_data) - int(value)
+                if v > 0:
+                    result = "+%s" % v
+                else:
+                    result = "%s" % v
+            else:
+                v = float(newest_data) - float(value)
+                if v > 0:
+                    result = "+{:.3f}".format(v)
+                else:
+                    result = "{:.3f}".format(v)
+            compare_arr.append("%s(%s)" % (value, result))
+        compare_arr.append(newest_data)
+        return compare_arr
+
+    @staticmethod
+    def data_print(handle_arr):
+        tb = PrettyTable()
+        tb.field_names = ['key_type', 'index[4]', 'index[3]', 'index[2]', 'index[1]', 'index[0]']
+        for data_arr in handle_arr:
+            tb.add_row(data_arr)
+        print(tb)

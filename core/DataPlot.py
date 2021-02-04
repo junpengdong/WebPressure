@@ -59,7 +59,7 @@ class PerformanceDataPlot:
         # plt.figure(figsize=(16, 8))
         plt.title('WebPressure Data', fontsize=20)
         plt.ylabel('Response Time(ms)', fontsize=18)
-        plt.xlabel('X label Describe', fontsize=18)
+        # plt.xlabel('X label Describe', fontsize=18)
         plt.tick_params(labelsize=16)
 
     def data_plot_dispatch(self, x, y, show_type='bar'):
@@ -67,19 +67,24 @@ class PerformanceDataPlot:
             self.bar(x, y)
         elif show_type == 'line':
             self.line(x, y)
+        elif show_type == 'point_line':
+            self.point_line(x, y)
+        plt.show()
 
     @staticmethod
     def line(x, y, color='red', line_width=2, line_style='--'):
         min_index, min_value = min(enumerate(y), key=operator.itemgetter(1))
         max_index, max_value = max(enumerate(y), key=operator.itemgetter(1))
-        plt.plot(x, y, color, linewidth=line_width, linestyle=line_style)
+        plt.plot(x, y, color=color, linewidth=line_width, linestyle=line_style)
         plt.annotate(str(min_value), xy=(min_index + 1, min_value))
         plt.annotate(str(max_value), xy=(max_index + 1, max_value))
-        plt.show()
 
     @staticmethod
-    def bar(x, y, ha='center', va='top'):
-        plt.bar(x, y)
+    def bar(x, y, ha='center', va='top', color='red'):
+        plt.bar(x, y, color=color)
         for a, b in zip(x, y):
             plt.text(a, b + 25, int(b), ha=ha, va=va)
-        plt.show()
+
+    @staticmethod
+    def point_line(x, y, color='red', label=None):
+        plt.plot(x, y, '.-', color=color, label=label)
