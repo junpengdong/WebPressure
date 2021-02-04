@@ -9,6 +9,7 @@
         "req_type": "get",
         "req_time": 0,
         "resp_data_handle": "medium",
-        "resp_show": "point_line"
+        "resp_show": "point_line",
+        "forever": 1
     }
 }

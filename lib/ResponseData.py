@@ -10,7 +10,6 @@ class WebResponseData:
                    max_tps, min_tps, avg_tps, slow_query, error_query):
         json_data = WebResponseData.read_data()
         data_arr = json_data.get(key)
-        print(data_arr)
         if data_arr is None:
             data_arr = []
         json_obj = {

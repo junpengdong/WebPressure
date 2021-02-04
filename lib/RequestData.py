@@ -59,6 +59,13 @@ class WebRequestData:
         resp_show = self.__json_data[key]['resp_show']
         return resp_show
 
+    # 获取一直并发请求参数
+    def get_forever(self, key):
+        forever = self.__json_data[key]['forever']
+        if forever is None:
+            forever = 0
+        return forever
+
     # 自定义请求参数
     def custom_params(self, method):
         if method == 'random_append_word':

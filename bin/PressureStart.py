@@ -82,16 +82,25 @@ if __name__ == '__main__':
     if warm_up > 0:
         print("Warm Up Request Start...")
         script_main.pressure_req_api(warm_up, web_req_data, t='warm_up')
-    script_main.init_params()
+        script_main.init_params()
     req_number = web_req_data.get_req_number(key)
     print("Web Api Request Start...")
-    script_main.pressure_req_api(req_number, web_req_data)
-
-    # 性能数据处理
+    forever = web_req_data.get_forever(key)
+    resp_data_handle = web_req_data.get_resp_data_handle(key)
     data_handle = PerformanceDataHandle()
-    x, y = data_handle.show_type_dispatch(script_main.resp_time_arr,
-                                          web_req_data.get_resp_data_handle(key))
-
-    # 性能数据绘图
     data_plot = PerformanceDataPlot()
-    data_plot.data_plot_dispatch(x, y, web_req_data.get_resp_show(key))
+    print(forever)
+    if forever == 1:
+        while True:
+            script_main.pressure_req_api(req_number, web_req_data)
+            # 性能数据处理
+            x, y = data_handle.show_type_dispatch(script_main.resp_time_arr, resp_data_handle)
+            # 性能数据绘图
+            data_plot.data_plot_dispatch(x, y, web_req_data.get_resp_show(key))
+            script_main.init_params()
+    else:
+        script_main.pressure_req_api(req_number, web_req_data)
+        # 性能数据处理
+        x, y = data_handle.show_type_dispatch(script_main.resp_time_arr, resp_data_handle)
+        # 性能数据绘图
+        data_plot.data_plot_dispatch(x, y, web_req_data.get_resp_show(key))
