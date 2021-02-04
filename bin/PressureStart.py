@@ -25,19 +25,19 @@ class ScriptMain:
         self.sent_arr = []
         self.receive_arr = []
 
-    def fast_req(self):
+    def __fast_req(self):
         for thread in self.thread_arr:
             thread.setDaemon(True)
             thread.start()
 
-    def slow_req(self, t):
+    def __slow_req(self, t):
         slow_time = round(((t * 1000) / len(self.thread_arr)) / 1000, 3)
         for thread in self.thread_arr:
             thread.setDaemon(True)
             thread.start()
             time.sleep(slow_time)
 
-    def thread_join(self):
+    def __thread_join(self):
         for thread in self.thread_arr:
             thread.join()
             result = thread.get_result()
@@ -63,10 +63,10 @@ class ScriptMain:
         req_time = data_obj.get_req_time(self.key)
         start_time = time.time()
         if req_time > 0:
-            self.slow_req(req_time)
+            self.__slow_req(req_time)
         else:
-            self.fast_req()
-        self.thread_join()
+            self.__fast_req()
+        self.__thread_join()
         exec_time = time.time() - start_time
 
         data_print = PerformanceDataPrint(self.key, n, exec_time, self.resp_time_arr, self.resp_error_arr,

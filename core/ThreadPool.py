@@ -36,4 +36,3 @@ class CustomThreadPool(Thread):
         for thread in self.thread_arr:
             if thread.is_alive():
                 thread.join()
-                print(thread.get_result())

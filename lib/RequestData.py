@@ -62,10 +62,10 @@ class WebRequestData:
     # 自定义请求参数
     def custom_params(self, method):
         if method == 'random_append_word':
-            return self.random_append_word()
+            return self.__random_append_word()
 
     @staticmethod
-    def random_append_word():
+    def __random_append_word():
         letter_arr = ['a', 'b', 'c', 'd', 'e', 'f']
         count = 0
         word = ''

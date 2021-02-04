@@ -21,10 +21,10 @@ class PerformanceDataPrint:
         self.__avg_tps = "{:.3f}".format(self.__sec_number / (float(self.__avg_resp_time) / 1000))
         copy_resp_time_arr = copy.copy(resp_time_arr)
         copy_resp_time_arr.sort()
-        self.__resp_time_50 = copy_resp_time_arr[self.get_arr_index(copy_resp_time_arr, 0.5)]
-        self.__resp_time_90 = copy_resp_time_arr[self.get_arr_index(copy_resp_time_arr, 0.9)]
-        self.__resp_time_95 = copy_resp_time_arr[self.get_arr_index(copy_resp_time_arr, 0.95)]
-        self.__resp_time_99 = copy_resp_time_arr[self.get_arr_index(copy_resp_time_arr, 0.99)]
+        self.__resp_time_50 = copy_resp_time_arr[self.__get_arr_index(copy_resp_time_arr, 0.5)]
+        self.__resp_time_90 = copy_resp_time_arr[self.__get_arr_index(copy_resp_time_arr, 0.9)]
+        self.__resp_time_95 = copy_resp_time_arr[self.__get_arr_index(copy_resp_time_arr, 0.95)]
+        self.__resp_time_99 = copy_resp_time_arr[self.__get_arr_index(copy_resp_time_arr, 0.99)]
         self.__sent_kb = "{:.2f}".format(sum(sent_arr) / 1000 / exec_time)
         self.__receive_kb = "{:.2f}".format(sum(receive_arr) / 1000 / exec_time)
         slow_query = 0
@@ -37,7 +37,7 @@ class PerformanceDataPrint:
         self.__error_query_rate = "{:.2f}%".format(float(self.__error_query / req_number) * 100)
 
     @staticmethod
-    def get_arr_index(arr, percent):
+    def __get_arr_index(arr, percent):
         index = int(len(arr) * percent)
         if index != 0:
             index = index - 1
@@ -62,29 +62,29 @@ class PerformanceDataPrint:
             print("|                           Web Api Pressure Data                           |")
             print("|                                                                           |")
             print("-----------------------------------------------------------------------------")
-        self.append_str("|        Execute Time                |        %s s" % self.__exec_time)
-        self.append_str("|        Request Times               |        %s" % self.__req_number)
-        self.append_str("|        Request Times/Sec           |        %s" % self.__sec_number)
-        self.append_str("|        Max Response Time           |        %s ms" % self.__max_resp_time)
-        self.append_str("|        Min Response Time           |        %s ms" % self.__min_resp_time)
-        self.append_str("|        Avg Response Time           |        %s ms" % self.__avg_resp_time)
-        self.append_str("|        Max TPS                     |        %s" % self.__max_tps)
-        self.append_str("|        Min TPS                     |        %s" % self.__min_tps)
-        self.append_str("|        Avg TPS                     |        %s" % self.__avg_tps)
-        self.append_str("|        50% Line                    |        " + str(self.__resp_time_50) + " ms")
-        self.append_str("|        90% Line                    |        " + str(self.__resp_time_90) + " ms")
-        self.append_str("|        95% Line                    |        " + str(self.__resp_time_95) + " ms")
-        self.append_str("|        99% Line                    |        " + str(self.__resp_time_99) + " ms")
-        self.append_str("|        Sent KB/Sec                 |        %s KB" % self.__sent_kb)
-        self.append_str("|        Received KB/Sec             |        %s KB" % self.__receive_kb)
-        self.append_str("|        Slow Request Times          |        %s" % self.__slow_query)
-        self.append_str("|        Slow Request Rate           |        %s" % self.__slow_query_rate)
-        self.append_str("|        Error Request Times         |        %s" % self.__error_query)
-        self.append_str("|        Error Request Rate          |        %s" % self.__error_query_rate)
+        self.__append_str("|        Execute Time                |        %s s" % self.__exec_time)
+        self.__append_str("|        Request Times               |        %s" % self.__req_number)
+        self.__append_str("|        Request Times/Sec           |        %s" % self.__sec_number)
+        self.__append_str("|        Max Response Time           |        %s ms" % self.__max_resp_time)
+        self.__append_str("|        Min Response Time           |        %s ms" % self.__min_resp_time)
+        self.__append_str("|        Avg Response Time           |        %s ms" % self.__avg_resp_time)
+        self.__append_str("|        Max TPS                     |        %s" % self.__max_tps)
+        self.__append_str("|        Min TPS                     |        %s" % self.__min_tps)
+        self.__append_str("|        Avg TPS                     |        %s" % self.__avg_tps)
+        self.__append_str("|        50% Line                    |        " + str(self.__resp_time_50) + " ms")
+        self.__append_str("|        90% Line                    |        " + str(self.__resp_time_90) + " ms")
+        self.__append_str("|        95% Line                    |        " + str(self.__resp_time_95) + " ms")
+        self.__append_str("|        99% Line                    |        " + str(self.__resp_time_99) + " ms")
+        self.__append_str("|        Sent KB/Sec                 |        %s KB" % self.__sent_kb)
+        self.__append_str("|        Received KB/Sec             |        %s KB" % self.__receive_kb)
+        self.__append_str("|        Slow Request Times          |        %s" % self.__slow_query)
+        self.__append_str("|        Slow Request Rate           |        %s" % self.__slow_query_rate)
+        self.__append_str("|        Error Request Times         |        %s" % self.__error_query)
+        self.__append_str("|        Error Request Rate          |        %s" % self.__error_query_rate)
         print("-----------------------------------------------------------------------------\n\n")
 
     @staticmethod
-    def append_str(s, c=77):
+    def __append_str(s, c=77):
         length = len(s)
         if length < c:
             for i in range(c - length - 1):
@@ -104,11 +104,11 @@ class DataAnalysisPrint:
         json_obj_arr = json_data.get(key)
         handle_arr = []
         for k in self.__key_arr:
-            handle_arr.append(DataAnalysisPrint.data_compare(k, json_obj_arr))
-        self.data_print(handle_arr)
+            handle_arr.append(DataAnalysisPrint.__data_compare(k, json_obj_arr))
+        self.__data_print(handle_arr)
 
     @staticmethod
-    def data_compare(key, json_obj_arr):
+    def __data_compare(key, json_obj_arr):
         value_arr = [d[key] for d in json_obj_arr]
         if len(value_arr) == 0:
             return
@@ -133,7 +133,7 @@ class DataAnalysisPrint:
         return compare_arr
 
     @staticmethod
-    def data_print(handle_arr):
+    def __data_print(handle_arr):
         tb = PrettyTable()
         tb.field_names = ['key_type', 'index[4]', 'index[3]', 'index[2]', 'index[1]', 'index[0]']
         for data_arr in handle_arr:
