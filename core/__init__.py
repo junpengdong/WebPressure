@@ -1,7 +1,5 @@
-from .DataPlot import *
-from .DataPrint import *
-from .ThreadPool import *
+from .Requests import ApiRequest
+from .ThreadPool import CustomThreadPool
 
-__all__ = (DataPlot.__all__ +
-           DataPrint.__all__ +
+__all__ = (Requests.__all__ +
            ThreadPool.__all__)

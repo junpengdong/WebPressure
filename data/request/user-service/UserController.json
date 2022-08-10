@@ -1,0 +1,12 @@
+{
+    "getUserProfileByUserIdList": {
+        "api": "/api/v1/profile",
+        "request_type": "get",
+        "params_method": "random_user_id_list",
+        "body_method": "random_user_id_list",
+        "headers_method": "random_user_id_and_language",
+        "headers": "{\"language\": \"en_US\"}",
+        "request_number": 9430,
+        "complete_second": 100
+    }
+}

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 from threading import Thread
 
 __all__ = 'CustomThreadPool',
@@ -28,11 +29,3 @@ class CustomThreadPool(Thread):
         except Exception as e:
             print(e)
             return None
-
-    def submit(self):
-        for thread in self.thread_arr:
-            thread.start()
-
-        for thread in self.thread_arr:
-            if thread.is_alive():
-                thread.join()
